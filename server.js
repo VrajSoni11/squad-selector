@@ -56,12 +56,23 @@ app.get('/api/teams', async (req, res) => {
 
 app.post('/api/teams', async (req, res) => {
   try {
-    const { name } = req.body;
+    const {
+  name,
+  primary_color,
+  secondary_color
+} = req.body;
 
-    const result = await pool.query(
-      'INSERT INTO teams(name) VALUES($1) RETURNING *',
-      [name]
-    );
+const result = await pool.query(
+  `INSERT INTO teams
+  (name, primary_color, secondary_color)
+  VALUES($1, $2, $3)
+  RETURNING *`,
+  [
+    name,
+    primary_color,
+    secondary_color
+  ]
+);
 
     res.json(result.rows[0]);
   } catch (err) {

@@ -54,6 +54,8 @@ async function loadPlayers() {
 
     players = sortPlayers(players);
 
+    /* CLEAR ALL ZONES */
+
     for (let i = 0; i <= 5; i++) {
 
       const zone = document.getElementById(`zone-${i}`);
@@ -64,6 +66,8 @@ async function loadPlayers() {
 
     }
 
+    /* RENDER PLAYERS */
+
     players.forEach(player => {
 
       const card = document.createElement('div');
@@ -72,24 +76,36 @@ async function loadPlayers() {
 
       card.dataset.id = player.id;
 
+      const positions = player.positions.join(' • ');
+
+      const clubText = player.club
+        ? player.club
+        : 'No Club';
+
+      const ageText = player.age
+        ? `${player.age} yrs`
+        : '';
+
       card.innerHTML = `
-        <h3>${player.name}</h3>
-
-        <div class="player-meta">
-          ${player.positions.join(', ')}
-        </div>
-
-        <div class="player-meta">
-          ${player.club || ''}
-          ${player.age ? ` • ${player.age}` : ''}
-        </div>
 
         <button
           class="delete-btn"
           onclick="deletePlayer(${player.id})"
         >
-          Delete
+          ✕
         </button>
+
+        <h3>${player.name}</h3>
+
+        <div class="player-meta">
+          ${positions}
+        </div>
+
+        <div class="player-meta">
+          ${clubText}
+          ${ageText ? ` • ${ageText}` : ''}
+        </div>
+
       `;
 
       const zone = document.getElementById(`zone-${player.zone}`);
@@ -99,6 +115,8 @@ async function loadPlayers() {
       }
 
     });
+
+    /* INIT DRAG ONLY ONCE */
 
     if (!sortableInitialized) {
 
@@ -166,6 +184,8 @@ async function addPlayer() {
 
     });
 
+    /* RESET FORM */
+
     document.getElementById('playerName').value = '';
     document.getElementById('playerPositions').value = '';
     document.getElementById('playerAge').value = '';
@@ -209,7 +229,7 @@ function initDragDrop() {
 
       group: 'shared',
 
-      animation: 200,
+      animation: 180,
 
       ghostClass: 'dragging',
 

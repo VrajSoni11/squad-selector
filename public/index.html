@@ -1,24 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>FIFA WC 2026 Squad Selector</title>
+
   <link rel="stylesheet" href="style.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Bebas+Neue&display=swap" rel="stylesheet">
 </head>
+
 <body>
 
-<div class="container">
-  <h1>⚽ FIFA WC 2026 Squad Selector</h1>
+<div class="hero">
 
-  <div class="team-form">
-    <input type="text" id="teamName" placeholder="Enter team name">
-    <button onclick="createTeam()">Create Team</button>
+  <div class="hero-overlay"></div>
+
+  <div class="hero-content">
+
+    <p class="hero-tag">
+      FIFA WORLD CUP 2026
+    </p>
+
+    <h1>
+      Squad Selector
+    </h1>
+
+    <p class="hero-desc">
+      Build your dream World Cup squads, track player probabilities,
+      scout talent and organize national team pools visually.
+    </p>
+
+  </div>
+
+</div>
+
+<div class="container">
+
+  <div class="create-team-card">
+
+    <h2>Create New National Team</h2>
+
+    <div class="team-form">
+
+      <input
+        type="text"
+        id="teamName"
+        placeholder="Team Name"
+      >
+
+      <div class="color-picker-group">
+
+        <label>
+          Primary
+        </label>
+
+        <input
+          type="color"
+          id="primaryColor"
+          value="#1e293b"
+        >
+
+      </div>
+
+      <div class="color-picker-group">
+
+        <label>
+          Secondary
+        </label>
+
+        <input
+          type="color"
+          id="secondaryColor"
+          value="#ffffff"
+        >
+
+      </div>
+
+      <button onclick="createTeam()">
+        Create Team
+      </button>
+
+    </div>
+
   </div>
 
   <div id="teams" class="teams-grid"></div>
+
 </div>
 
 <script src="app.js"></script>
+
 </body>
 </html>
