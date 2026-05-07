@@ -1,0 +1,65 @@
+* {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.team-card {
+  background: #1e293b;
+  padding: 20px;
+  border-radius: 15px;
+}
+
+.team-card h2 {
+  margin-bottom: 15px;
+}
+
+.team-card a {
+  display: inline-block;
+  margin-top: 10px;
+  color: #38bdf8;
+  text-decoration: none;
+}
+
+.zones-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.zone {
+  background: #1e293b;
+  border-radius: 15px;
+  padding: 15px;
+  min-height: 400px;
+}
+
+.zone h2 {
+  margin-bottom: 15px;
+}
+
+.players {
+  min-height: 300px;
+}
+
+.player-card {
+  background: #334155;
+  padding: 12px;
+  border-radius: 12px;
+  margin-bottom: 10px;
+  cursor: grab;
+}
+
+.player-card h3 {
+  margin-bottom: 5px;
+}
+
+.player-meta {
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+.delete-btn {
+  background: #ef4444;
+  margin-top: 10px;
+}
