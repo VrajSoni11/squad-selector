@@ -11,6 +11,6 @@ CREATE TABLE IF NOT EXISTS players (
     positions TEXT[] NOT NULL,
     age INTEGER,
     club VARCHAR(100),
-    zone INTEGER DEFAULT 1,
+    zone INTEGER DEFAULT 0,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

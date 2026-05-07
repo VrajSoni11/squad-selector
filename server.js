@@ -54,3 +54,114 @@ app.get('/api/teams', async (req, res) => {
   }
 });
 
+app.post('/api/teams', async (req, res) => {
+  try {
+    const { name } = req.body;
+
+    const result = await pool.query(
+      'INSERT INTO teams(name) VALUES($1) RETURNING *',
+      [name]
+    );
+
+    res.json(result.rows[0]);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+app.delete('/api/teams/:id', async (req, res) => {
+  try {
+    await pool.query(
+      'DELETE FROM teams WHERE id = $1',
+      [req.params.id]
+    );
+
+    res.json({ success: true });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+app.get('/api/teams/:id/players', async (req, res) => {
+  try {
+    const result = await pool.query(
+      'SELECT * FROM players WHERE team_id = $1',
+      [req.params.id]
+    );
+
+    const sorted = sortPlayers(result.rows);
+
+    res.json(sorted);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+app.post('/api/teams/:id/players', async (req, res) => {
+  try {
+    const { name, positions, age, club, zone } = req.body;
+
+    const result = await pool.query(
+      `INSERT INTO players
+      (team_id, name, positions, age, club, zone)
+      VALUES($1, $2, $3, $4, $5, $6)
+      RETURNING *`,
+      [
+        req.params.id,
+        name,
+        positions,
+        age || null,
+        club || null,
+        zone
+      ]
+    );
+
+    res.json(result.rows[0]);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+app.put('/api/players/:id/zone', async (req, res) => {
+  try {
+    const { zone } = req.body;
+
+    await pool.query(
+      'UPDATE players SET zone = $1 WHERE id = $2',
+      [zone, req.params.id]
+    );
+
+    res.json({ success: true });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+app.delete('/api/players/:id', async (req, res) => {
+  try {
+    await pool.query(
+      'DELETE FROM players WHERE id = $1',
+      [req.params.id]
+    );
+
+    res.json({ success: true });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on port ${PORT}`);
+});

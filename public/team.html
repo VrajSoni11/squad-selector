@@ -1,59 +1,83 @@
 <!DOCTYPE html>
+<html lang="en">
+
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Team Squad</title>
+
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
 <div class="container">
 
-  <a href="/">⬅ Back</a>
+  <a href="/" class="back-btn">⬅ Back</a>
 
   <h1 id="teamTitle"></h1>
 
   <div class="player-form">
+
     <input type="text" id="playerName" placeholder="Player Name">
-    <input type="text" id="playerPositions" placeholder="Positions (GK,CB,ST)">
-    <input type="number" id="playerAge" placeholder="Age">
-    <input type="text" id="playerClub" placeholder="Club">
 
-    <select id="playerZone">
-      <option value="1">Definitely Going</option>
-      <option value="2">Almost There</option>
-      <option value="3">On Radar</option>
-      <option value="4">Chances Exist</option>
-      <option value="5">Very Tough</option>
-    </select>
+    <input type="text"
+      id="playerPositions"
+      placeholder="Positions (GK,CB,ST)">
 
-    <button onclick="addPlayer()">Add Player</button>
+    <input type="number"
+      id="playerAge"
+      placeholder="Age">
+
+    <input type="text"
+      id="playerClub"
+      placeholder="Club">
+
+    <button onclick="addPlayer()">
+      Add Player
+    </button>
+
   </div>
 
-  <div class="zones-grid">
+  <div class="main-layout">
 
-    <div class="zone">
-      <h2>✅ Definitely Going</h2>
-      <div class="players" id="zone-1"></div>
+    <!-- HOLDING ZONE -->
+    <div class="holding-zone">
+
+      <h2>📋 Squad Pool</h2>
+
+      <div class="players zone-drop" id="zone-0"></div>
+
     </div>
 
-    <div class="zone">
-      <h2>🔥 Almost There</h2>
-      <div class="players" id="zone-2"></div>
-    </div>
+    <!-- MAIN ZONES -->
+    <div class="zones-grid">
 
-    <div class="zone">
-      <h2>👀 On Radar</h2>
-      <div class="players" id="zone-3"></div>
-    </div>
+      <div class="zone">
+        <h2>✅ Definitely Going</h2>
+        <div class="players zone-drop" id="zone-1"></div>
+      </div>
 
-    <div class="zone">
-      <h2>⚡ Chances Exist</h2>
-      <div class="players" id="zone-4"></div>
-    </div>
+      <div class="zone">
+        <h2>🔥 Almost There</h2>
+        <div class="players zone-drop" id="zone-2"></div>
+      </div>
 
-    <div class="zone">
-      <h2>❌ Very Tough</h2>
-      <div class="players" id="zone-5"></div>
+      <div class="zone">
+        <h2>👀 On Radar</h2>
+        <div class="players zone-drop" id="zone-3"></div>
+      </div>
+
+      <div class="zone">
+        <h2>⚡ Chances Exist</h2>
+        <div class="players zone-drop" id="zone-4"></div>
+      </div>
+
+      <div class="zone">
+        <h2>❌ Very Tough</h2>
+        <div class="players zone-drop" id="zone-5"></div>
+      </div>
+
     </div>
 
   </div>
@@ -62,5 +86,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
 <script src="team.js"></script>
+
 </body>
 </html>
