@@ -7,6 +7,8 @@ const teamName = params.get('name');
 
 document.getElementById('teamTitle').innerText = teamName;
 
+let sortableInitialized = false;
+
 const POSITION_ORDER = {
   GK: 1,
   CB: 2,
@@ -26,7 +28,9 @@ const POSITION_ORDER = {
 };
 
 function sortPlayers(players) {
+
   return players.sort((a, b) => {
+
     const posA = POSITION_ORDER[a.positions[0]] || 999;
     const posB = POSITION_ORDER[b.positions[0]] || 999;
 
@@ -35,22 +39,33 @@ function sortPlayers(players) {
     }
 
     return a.name.localeCompare(b.name);
+
   });
+
 }
 
 async function loadPlayers() {
+
   try {
+
     const res = await fetch(`${API}/teams/${teamId}/players`);
 
     let players = await res.json();
 
     players = sortPlayers(players);
 
-    for (let i = 1; i <= 5; i++) {
-      document.getElementById(`zone-${i}`).innerHTML = '';
+    for (let i = 0; i <= 5; i++) {
+
+      const zone = document.getElementById(`zone-${i}`);
+
+      if (zone) {
+        zone.innerHTML = '';
+      }
+
     }
 
     players.forEach(player => {
+
       const card = document.createElement('div');
 
       card.className = 'player-card';
@@ -66,47 +81,75 @@ async function loadPlayers() {
 
         <div class="player-meta">
           ${player.club || ''}
-          ${player.age ? `• ${player.age}` : ''}
+          ${player.age ? ` • ${player.age}` : ''}
         </div>
 
-        <button class="delete-btn" onclick="deletePlayer(${player.id})">
+        <button
+          class="delete-btn"
+          onclick="deletePlayer(${player.id})"
+        >
           Delete
         </button>
       `;
 
-      document
-        .getElementById(`zone-${player.zone}`)
-        .appendChild(card);
+      const zone = document.getElementById(`zone-${player.zone}`);
+
+      if (zone) {
+        zone.appendChild(card);
+      }
+
     });
 
-    initDragDrop();
+    if (!sortableInitialized) {
+
+      initDragDrop();
+
+      sortableInitialized = true;
+
+    }
 
   } catch (err) {
+
     console.log('Error loading players:', err);
+
   }
+
 }
 
 async function addPlayer() {
-  try {
-    const name = document.getElementById('playerName').value;
 
-    const positions = document
+  try {
+
+    const name = document
+      .getElementById('playerName')
+      .value
+      .trim();
+
+    const positionsInput = document
       .getElementById('playerPositions')
       .value
-      .split(',')
-      .map(p => p.trim().toUpperCase());
+      .trim();
 
-    const age = document.getElementById('playerAge').value;
+    const age = document
+      .getElementById('playerAge')
+      .value;
 
-    const club = document.getElementById('playerClub').value;
+    const club = document
+      .getElementById('playerClub')
+      .value
+      .trim();
 
-    const zone = 0;
-
-    if (!name || positions.length === 0) {
+    if (!name || !positionsInput) {
       return;
     }
 
+    const positions = positionsInput
+      .split(',')
+      .map(p => p.trim().toUpperCase())
+      .filter(Boolean);
+
     await fetch(`${API}/teams/${teamId}/players`, {
+
       method: 'POST',
 
       headers: {
@@ -118,8 +161,9 @@ async function addPlayer() {
         positions,
         age,
         club,
-        zone
+        zone: 0
       })
+
     });
 
     document.getElementById('playerName').value = '';
@@ -127,55 +171,84 @@ async function addPlayer() {
     document.getElementById('playerAge').value = '';
     document.getElementById('playerClub').value = '';
 
-    loadPlayers();
+    await loadPlayers();
 
   } catch (err) {
+
     console.log('Error adding player:', err);
+
   }
+
 }
 
 async function deletePlayer(id) {
+
   try {
+
     await fetch(`${API}/players/${id}`, {
       method: 'DELETE'
     });
 
-    loadPlayers();
+    await loadPlayers();
 
   } catch (err) {
+
     console.log('Error deleting player:', err);
+
   }
+
 }
 
 function initDragDrop() {
-  for (let i = 1; i <= 5; i++) {
 
-    new Sortable(document.getElementById(`zone-${i}`), {
+  const zones = document.querySelectorAll('.zone-drop');
+
+  zones.forEach(zone => {
+
+    new Sortable(zone, {
+
       group: 'shared',
 
-      animation: 150,
+      animation: 200,
 
-      async onEnd(evt) {
+      ghostClass: 'dragging',
+
+      onEnd: async function(evt) {
+
         const playerId = evt.item.dataset.id;
 
-        const newZone = evt.to.id.split('-')[1];
+        const newZone = parseInt(
+          evt.to.id.split('-')[1]
+        );
 
-        await fetch(`${API}/players/${playerId}/zone`, {
-          method: 'PUT',
+        try {
 
-          headers: {
-            'Content-Type': 'application/json'
-          },
+          await fetch(`${API}/players/${playerId}/zone`, {
 
-          body: JSON.stringify({
-            zone: newZone
-          })
-        });
+            method: 'PUT',
 
-        loadPlayers();
+            headers: {
+              'Content-Type': 'application/json'
+            },
+
+            body: JSON.stringify({
+              zone: newZone
+            })
+
+          });
+
+        } catch (err) {
+
+          console.log('Drag update failed:', err);
+
+        }
+
       }
+
     });
-  }
+
+  });
+
 }
 
 loadPlayers();
