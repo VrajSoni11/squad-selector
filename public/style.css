@@ -7,14 +7,14 @@
 }
 
 :root{
-  --glass:rgba(255,255,255,0.06);
+  --glass:rgba(8, 205, 240, 0.06);
   --glass-border:rgba(255,255,255,0.08);
 }
 
 body{
   background:
-    radial-gradient(circle at top left,#0f172a,#020617 60%);
-  color:white;
+    radial-gradient(circle at top left,#09e5ec,#045372 60%);
+  color:rgba(251, 255, 5, 0.71);
   font-family:'Inter',sans-serif;
   min-height:100vh;
   overflow-x:hidden;
@@ -33,7 +33,7 @@ body{
   overflow:hidden;
   background:
     linear-gradient(rgba(0,0,0,0.65),rgba(0,0,0,0.75)),
-    url('https://images.unsplash.com/photo-1517927033932-b3d18e61fb3a?q=80&w=1920');
+    url('https://assets.goal.com/images/v3/blt9fe9569de0dcb5c3/FIFA_World_Cup_2026_brand.png?auto=webp&format=pjpg&width=3840&quality=60');
   background-size:cover;
   background-position:center;
 }
@@ -78,9 +78,9 @@ body{
 
 input,
 select{
-  background:rgba(255,255,255,0.06);
-  border:1px solid rgba(255,255,255,0.08);
-  color:white;
+  background:rgba(255, 255, 255, 0.912);
+  border:1px solid rgba(36, 234, 22, 0.08);
+  color:rgb(40, 12, 176);
   padding:14px 16px;
   border-radius:16px;
   outline:none;
@@ -90,7 +90,7 @@ select{
 
 input:focus,
 select:focus{
-  border-color:rgba(255,255,255,0.2);
+  border-color:rgba(217, 11, 11, 0.2);
 }
 
 button{
@@ -134,8 +134,8 @@ button:hover{
 }
 
 .create-btn{
-  background:white;
-  color:black;
+  background:indianred;
+  color:blue;
   padding:14px 22px;
   border-radius:16px;
 }
@@ -151,6 +151,7 @@ input[type="color"]{
   height:50px;
   min-width:auto;
   padding:4px;
+  border-radius:14px;
 }
 
 /* =========================
@@ -220,8 +221,8 @@ input[type="color"]{
   border-radius:14px;
   text-decoration:none;
   font-weight:700;
-  color:white;
-  background:rgba(255,255,255,.12);
+  color:rgba(0, 0, 0, 0.79);
+  background:rgba(222, 179, 7, 0.329);
   backdrop-filter:blur(8px);
   transition:.25s;
 }
@@ -238,20 +239,20 @@ input[type="color"]{
   min-height:100vh;
   background:
     radial-gradient(circle at top left,
-    rgba(59,130,246,0.16),
+    rgba(138, 10, 223, 0.16),
     transparent 28%),
 
     radial-gradient(circle at bottom right,
-    rgba(16,185,129,0.13),
+    rgba(9, 233, 158, 0.13),
     transparent 28%),
 
-    #020617;
+    #0ac8f3;
 }
 
 .back-btn{
   display:inline-block;
   margin-bottom:18px;
-  color:white;
+  color:rgb(255, 255, 255);
   text-decoration:none;
   opacity:.75;
 }
@@ -288,7 +289,7 @@ input[type="color"]{
 }
 
 .add-player-bar button{
-  background:white;
+  background:rgb(243, 243, 5);
   color:black;
   border-radius:16px;
   padding:0 24px;
@@ -358,40 +359,62 @@ input[type="color"]{
 
 .player-card{
   position:relative;
+
   background:
     linear-gradient(
       135deg,
-      rgba(255,255,255,.08),
-      rgba(255,255,255,.03)
+      #740abb,
+      #17e5a0,
+      #109de4
     );
 
-  border:1px solid rgba(255,255,255,.05);
+  border:none;
 
   border-radius:18px;
 
   padding:14px 16px;
 
-  margin-bottom:10px;
+  margin-bottom:12px;
 
   cursor:grab;
 
-  transition:.22s;
+  transition:0.25s ease;
+
+  box-shadow:
+    0 8px 18px rgba(0,0,0,0.18);
+
+  overflow:hidden;
 }
 
 .player-card:hover{
-  transform:translateY(-2px);
+
+  transform:
+    translateY(-4px)
+    scale(1.02);
+
+  background:
+    linear-gradient(
+      135deg,
+      #d07f15,
+      #cdb331,
+      #d6b3bddf
+    );
+
+  box-shadow:
+    0 14px 24px rgba(0,0,0,0.24);
 }
 
 .player-card h3{
   font-size:18px;
-  margin-bottom:4px;
-  font-weight:700;
+  margin-bottom:5px;
+  font-weight:800;
+  color:white;
+  letter-spacing:.3px;
 }
 
 .player-meta{
   font-size:13px;
-  opacity:.75;
-  margin-bottom:2px;
+  color:rgba(255,255,255,0.9);
 }
 
 /* =========================
@@ -412,7 +435,7 @@ input[type="color"]{
 
   border:1px solid rgba(255,255,255,.12);
 
-  color:white;
+  color:rgb(255, 0, 0);
 
   font-size:11px;
   font-weight:700;
