@@ -2,119 +2,127 @@
 <html lang="en">
 
 <head>
-
   <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
-
-  <title>Squad Selection</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Team Squad</title>
 
   <link rel="stylesheet" href="style.css">
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Bebas+Neue&display=swap" rel="stylesheet">
-
 </head>
 
-<body>
+<body class="squad-page">
 
-<div class="squad-page">
+<div class="container">
 
-  <div class="container">
+  <a href="/" class="back-btn">⬅ Back</a>
 
-    <a href="/" class="back-btn">
-      ← Back
-    </a>
+  <div class="team-header">
+    <h1 id="teamTitle"></h1>
+    <p>Build your FIFA World Cup 2026 squad vision</p>
+  </div>
 
-    <div class="team-header">
+  <div class="add-player-bar">
 
-      <h1 id="teamTitle"></h1>
+    <input
+      type="text"
+      id="playerName"
+      placeholder="Player Name"
+    >
 
-      <p>
-        FIFA WC 2026 Squad Management
-      </p>
+    <input
+      type="text"
+      id="playerPositions"
+      placeholder="Positions (CAM,ST)"
+    >
+
+    <input
+      type="number"
+      id="playerAge"
+      placeholder="Age"
+    >
+
+    <input
+      type="text"
+      id="playerClub"
+      placeholder="Club"
+    >
+
+    <button onclick="addPlayer()">
+      Add Player
+    </button>
+
+  </div>
+
+  <div class="squad-layout">
+
+    <!-- SQUAD POOL -->
+
+    <div class="holding-zone">
+
+      <h2>
+        📋 Squad Pool
+        <span id="count-0" class="zone-count">0</span>
+      </h2>
+
+      <div class="players zone-drop" id="zone-0"></div>
 
     </div>
 
-    <div class="add-player-bar">
+    <!-- MAIN ZONES -->
 
-      <input
-        type="text"
-        id="playerName"
-        placeholder="Player Name"
-      >
+    <div class="zones-grid">
 
-      <input
-        type="text"
-        id="playerPositions"
-        placeholder="Positions (GK, CB, ST)"
-      >
-
-      <input
-        type="number"
-        id="playerAge"
-        placeholder="Age"
-      >
-
-      <input
-        type="text"
-        id="playerClub"
-        placeholder="Club"
-      >
-
-      <button onclick="addPlayer()">
-        Add Player
-      </button>
-
-    </div>
-
-    <div class="squad-layout">
-
-      <!-- SQUAD POOL -->
-      <div class="holding-zone">
+      <div class="zone">
 
         <h2>
-          Squad Pool
+          ✅ Definitely Going
+          <span id="count-1" class="zone-count">0</span>
         </h2>
 
-        <div
-          class="players zone-drop"
-          id="zone-0"
-        ></div>
+        <div class="players zone-drop" id="zone-1"></div>
 
       </div>
 
-      <!-- ZONES -->
-      <div class="zones-grid">
+      <div class="zone">
 
-        <div class="zone">
-          <h2>Golden Ticket</h2>
-          <div class="players zone-drop" id="zone-1"></div>
-        </div>
+        <h2>
+          🔥 Almost There
+          <span id="count-2" class="zone-count">0</span>
+        </h2>
 
-        <div class="zone">
-          <h2>Almost There</h2>
-          <div class="players zone-drop" id="zone-2"></div>
-        </div>
+        <div class="players zone-drop" id="zone-2"></div>
 
-        <div class="zone">
-          <h2>On Radar</h2>
-          <div class="players zone-drop" id="zone-3"></div>
-        </div>
+      </div>
 
-        <div class="zone">
-          <h2>Chances Exist</h2>
-          <div class="players zone-drop" id="zone-4"></div>
-        </div>
+      <div class="zone">
 
-        <div class="zone">
-          <h2>Very Tough</h2>
-          <div class="players zone-drop" id="zone-5"></div>
-        </div>
+        <h2>
+          👀 On Radar
+          <span id="count-3" class="zone-count">0</span>
+        </h2>
+
+        <div class="players zone-drop" id="zone-3"></div>
+
+      </div>
+
+      <div class="zone">
+
+        <h2>
+          ⚡ Chances Exist
+          <span id="count-4" class="zone-count">0</span>
+        </h2>
+
+        <div class="players zone-drop" id="zone-4"></div>
+
+      </div>
+
+      <div class="zone">
+
+        <h2>
+          ❌ Very Tough
+          <span id="count-5" class="zone-count">0</span>
+        </h2>
+
+        <div class="players zone-drop" id="zone-5"></div>
 
       </div>
 
@@ -125,7 +133,6 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
-
 <script src="team.js"></script>
 
 </body>

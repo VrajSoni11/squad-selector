@@ -54,7 +54,7 @@ async function loadPlayers() {
 
     players = sortPlayers(players);
 
-    /* CLEAR ALL ZONES */
+    /* RESET ZONES */
 
     for (let i = 0; i <= 5; i++) {
 
@@ -62,6 +62,13 @@ async function loadPlayers() {
 
       if (zone) {
         zone.innerHTML = '';
+      }
+
+      const countElement =
+        document.getElementById(`count-${i}`);
+
+      if (countElement) {
+        countElement.innerText = '0';
       }
 
     }
@@ -72,19 +79,74 @@ async function loadPlayers() {
 
       const card = document.createElement('div');
 
-      card.className = 'player-card';
+      const primaryPosition =
+        player.positions[0]
+          .trim()
+          .toUpperCase();
+
+      let cardType = 'attacker-card';
+
+      /* GOALKEEPER */
+
+      if (primaryPosition === 'GK') {
+
+        cardType = 'gk-card';
+
+      }
+
+      /* DEFENDERS */
+
+      else if (
+        primaryPosition === 'CB' ||
+        primaryPosition === 'LB' ||
+        primaryPosition === 'RB'
+      ) {
+
+        cardType = 'defender-card';
+
+      }
+
+      /* MIDFIELDERS */
+
+      else if (
+        primaryPosition === 'CDM' ||
+        primaryPosition === 'CM'
+      ) {
+
+        cardType = 'midfielder-card';
+
+      }
+
+      /* ATTACKERS */
+
+      else if (
+        primaryPosition === 'CAM' ||
+        primaryPosition === 'RW' ||
+        primaryPosition === 'LW' ||
+        primaryPosition === 'ST'
+      ) {
+
+        cardType = 'attacker-card';
+
+      }
+
+      card.className =
+        `player-card ${cardType}`;
 
       card.dataset.id = player.id;
 
-      const positions = player.positions.join(' • ');
+      const positions =
+        player.positions.join(' • ');
 
-      const clubText = player.club
-        ? player.club
-        : 'No Club';
+      const clubText =
+        player.club
+          ? player.club
+          : 'No Club';
 
-      const ageText = player.age
-        ? `${player.age} yrs`
-        : '';
+      const ageText =
+        player.age
+          ? `${player.age} yrs`
+          : '';
 
       card.innerHTML = `
 
@@ -108,10 +170,28 @@ async function loadPlayers() {
 
       `;
 
-      const zone = document.getElementById(`zone-${player.zone}`);
+      const zone =
+        document.getElementById(`zone-${player.zone}`);
 
       if (zone) {
+
         zone.appendChild(card);
+
+      }
+
+      /* UPDATE COUNT */
+
+      const countElement =
+        document.getElementById(`count-${player.zone}`);
+
+      if (countElement) {
+
+        const currentCount =
+          parseInt(countElement.innerText);
+
+        countElement.innerText =
+          currentCount + 1;
+
       }
 
     });
@@ -256,6 +336,8 @@ function initDragDrop() {
             })
 
           });
+
+          await loadPlayers();
 
         } catch (err) {
 

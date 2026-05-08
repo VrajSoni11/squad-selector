@@ -523,3 +523,87 @@ input[type="color"]{
   }
 
 }
+
+/* GOALKEEPER */
+
+.gk-card{
+
+  background:
+    linear-gradient(
+      135deg,
+      #f59e0b,
+      #facc15
+    );
+
+}
+
+/* DEFENDERS */
+
+.defender-card{
+
+  background:
+    linear-gradient(
+      135deg,
+      #2563eb,
+      #06b6d4
+    );
+
+}
+
+/* MIDFIELDERS */
+
+.midfielder-card{
+
+  background:
+    linear-gradient(
+      135deg,
+      #16a34a,
+      #84cc16
+    );
+
+}
+
+/* ATTACKERS */
+
+.attacker-card{
+
+  background:
+    linear-gradient(
+      135deg,
+      #dc2626,
+      #f43f5e
+    );
+
+}
+
+.zone h2{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.zone-count{
+
+  background:white;
+
+  color:black;
+
+  min-width:34px;
+
+  height:34px;
+
+  border-radius:50%;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  font-size:14px;
+
+  font-weight:800;
+
+  padding:0 10px;
+
+}
